@@ -49,7 +49,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 		--with-mail_ssl_module \
 		--with-file-aio \
 		--with-http_v2_module \
-		--with-ipv6 \
+		--with-cc-opt="-DNGX_HAVE_INET6=0" \
 		--add-module=/usr/src/nginx-goodies-nginx-sticky-module-ng-$NGINX_STICKY_MODULE_NG_VERSION \
 		--add-module=/usr/src/nginx-upstream-dynamic-servers-$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION \
 	" \
