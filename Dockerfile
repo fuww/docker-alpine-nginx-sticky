@@ -1,9 +1,9 @@
 # based on the original stable alpine image
 # https://github.com/nginxinc/docker-nginx/blob/014e624239987a0a46bee5b44088a8c5150bf0bb/stable/alpine/Dockerfile
 
-FROM alpine:3.6
+FROM alpine:3.10
 
-ENV NGINX_VERSION 1.12.1
+ENV NGINX_VERSION 1.16.1
 ENV NGINX_STICKY_MODULE_NG_VERSION 08a395c66e42
 ENV NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION master
 
@@ -72,7 +72,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
 	&& curl -fSL https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/$NGINX_STICKY_MODULE_NG_VERSION.tar.gz -o nginx-sticky-module-ng.tar.gz \
-	&& curl -fSL https://github.com/aziontech/nginx-upstream-dynamic-servers/archive/$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION.tar.gz -o nginx-upstream-dynamic-servers.tar.gz \
+	&& curl -fSL https://github.com/GUI/nginx-upstream-dynamic-servers/archive/$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION.tar.gz -o nginx-upstream-dynamic-servers.tar.gz \
 	&& export GNUPGHOME="$(mktemp -d)" \
 	&& found=''; \
 	for server in \
