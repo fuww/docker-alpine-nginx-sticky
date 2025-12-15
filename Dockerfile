@@ -1,10 +1,10 @@
 # based on the original stable alpine image
 # https://github.com/nginxinc/docker-nginx/blob/014e624239987a0a46bee5b44088a8c5150bf0bb/stable/alpine/Dockerfile
 
-FROM alpine:3.14
+FROM alpine:3.23
 
-ENV NGINX_VERSION 1.20.2
-ENV NGINX_STICKY_MODULE_NG_VERSION 08a395c66e42
+ENV NGINX_VERSION 1.28.0
+ENV NGINX_STICKY_MODULE_NG_VERSION 544beae626f20276e3ecea18395b158bd995000e
 ENV NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION master
 
 RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
@@ -50,7 +50,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	--with-file-aio \
 	--with-http_v2_module \
 	--with-cc-opt="-DNGX_HAVE_INET6=0" \
-	--add-module=/usr/src/nginx-goodies-nginx-sticky-module-ng-$NGINX_STICKY_MODULE_NG_VERSION \
+	--add-module=/usr/src/nginx_sticky_module_ng-$NGINX_STICKY_MODULE_NG_VERSION \
 	--add-module=/usr/src/nginx-upstream-dynamic-servers-$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION \
 	" \
 	&& addgroup -S nginx \
@@ -71,7 +71,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	perl-dev \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
-	&& curl -fSL https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/$NGINX_STICKY_MODULE_NG_VERSION.tar.gz -o nginx-sticky-module-ng.tar.gz \
+	&& curl -fSL https://github.com/fabianofurtado/nginx_sticky_module_ng/archive/$NGINX_STICKY_MODULE_NG_VERSION.tar.gz -o nginx-sticky-module-ng.tar.gz \
 	&& curl -fSL https://github.com/DawtCom/nginx-upstream-dynamic-servers/archive/$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION.tar.gz -o nginx-upstream-dynamic-servers.tar.gz \
 	&& export GNUPGHOME="$(mktemp -d)" \
 	&& found=''; \
@@ -107,7 +107,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& strip /usr/sbin/nginx* \
 	&& strip /usr/lib/nginx/modules/*.so \
 	&& rm -rf /usr/src/nginx-$NGINX_VERSION \
-	&& rm -rf /usr/src/nginx-goodies-nginx-sticky-module-ng-$NGINX_STICKY_MODULE_NG_VERSION \
+	&& rm -rf /usr/src/nginx_sticky_module_ng-$NGINX_STICKY_MODULE_NG_VERSION \
 	&& rm -rf /usr/src/nginx-upstream-dynamic-servers-$NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION \
 	\
 	# Bring in gettext so we can get `envsubst`, then throw
