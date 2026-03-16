@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-Custom NGINX Docker image based on Alpine Linux 3.14, compiled from source with two additional modules:
+Custom NGINX Docker image based on Alpine Linux 3.23, compiled from source with two additional modules:
 
-- **nginx-sticky-module-ng** — sticky session support for upstream load balancing
-- **nginx-upstream-dynamic-servers** — dynamic DNS resolution for upstream servers (DawtCom fork)
+- **nginx-sticky-module-ng** — sticky session support for upstream load balancing ([fabianofurtado/nginx_sticky_module_ng](https://github.com/fabianofurtado/nginx_sticky_module_ng) fork, maintained for modern nginx)
+- **nginx-upstream-dynamic-servers** — dynamic DNS resolution for upstream servers ([DawtCom fork](https://github.com/DawtCom/nginx-upstream-dynamic-servers))
 
 IPv6 is explicitly disabled via `--with-cc-opt="-DNGX_HAVE_INET6=0"`.
 
@@ -23,8 +23,8 @@ docker build -t alpine-nginx-sticky .
 
 Defined as `ENV` variables at the top of the Dockerfile:
 
-- `NGINX_VERSION` — currently 1.20.2 (stable)
-- `NGINX_STICKY_MODULE_NG_VERSION` — Bitbucket commit hash
+- `NGINX_VERSION` — currently 1.26.3 (previous stable, compatible with sticky module)
+- `NGINX_STICKY_MODULE_NG_VERSION` — GitHub commit hash (currently `544beae6`, tested against nginx 1.26.0)
 - `NGINX_UPSTREAM_DYNAMIC_SERVERS_VERSION` — GitHub branch (currently `master`)
 
 ## Architecture
